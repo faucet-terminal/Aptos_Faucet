@@ -74,7 +74,7 @@
 }
 
 .center {
-  display: flex;
+  display: grid;
   justify-content: center;
   align-items: center;
   position: relative;
@@ -104,7 +104,21 @@
   filter: blur(45px);
   transform: translateZ(0);
 }
-
+.form {
+  position: fixed;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+}
+.errMsg {
+  color: #a83d3d;
+}
+.result {
+  width: 100%;
+  overflow: auto;
+  height: 50vh;
+}
 .logo {
   position: relative;
 }
