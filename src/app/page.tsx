@@ -29,11 +29,9 @@ export default function Home() {
         throw new Error(errMsg);
       }
       const res = await response.json()
-      console.log('[ r ] >', res)
       if (res) {
         setErrMsg('')
         setResult(res)
-        console.log('[ res ] >', res)
       }
     } catch (error: any) {
       setErrMsg(error.message)
