@@ -2,7 +2,7 @@ import { Account, Aptos, AptosConfig, Ed25519PrivateKey, Network } from "@aptos-
 import { NextResponse } from "next/server";
 
 // 1 APT
-const TRANSFER_AMOUNT = 10_000_000;
+const TRANSFER_AMOUNT = 100_000_000;
 export async function POST(req: Request) {
   if (!process.env.PRIVATE_KEY) {
     return new NextResponse("No private key found", { status: 400 });
@@ -26,7 +26,12 @@ export async function POST(req: Request) {
     });
     const pendingTxn = await aptos.signAndSubmitTransaction({ signer: adminAccount, transaction });
     const response = await aptos.waitForTransaction({ transactionHash: pendingTxn.hash });
-    return NextResponse.json(response);
+    const result = {
+      tx_id: response.hash,
+      success: response.success,
+      explorer_url: 'https://explorer.aptoslabs.com/txn/'+response.hash,
+    }
+    return NextResponse.json(result);
     
   } catch (error:any) {
     return new NextResponse(error.message, { status: 500 });

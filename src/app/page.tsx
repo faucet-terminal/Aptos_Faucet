@@ -1,6 +1,7 @@
 "use client"
 import { useState, useTransition } from "react";
 import styles from "./page.module.css";
+import { Network } from "@aptos-labs/ts-sdk";
 
 export default function Home() {
   const [address, setAddress] = useState('');
@@ -14,13 +15,15 @@ export default function Home() {
       return alert("请输入地址")
     }
     try {
-      const response = await fetch(`/api/faucet`, {
+      const response = await fetch(`/api/aptos/request`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          address
+          address,
+          amount: 0.1,
+          network: Network.TESTNET
         })
       })
       if (!response.ok) {
