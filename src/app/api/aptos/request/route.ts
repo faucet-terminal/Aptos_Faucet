@@ -16,9 +16,10 @@ export async function POST(req: Request) {
     const aptos = new Aptos(aptosConfig);
     
     // 验证账号是否存在
-    await aptos.account.getAccountInfo({
-      accountAddress:address
-    })
+    // await aptos.account.getAccountInfo({
+    //   accountAddress:address
+    // })
+    
     const transaction = await aptos.transferCoinTransaction({
       sender: adminAccount.accountAddress,
       recipient: address,
