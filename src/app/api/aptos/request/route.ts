@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     return new NextResponse("No private key found", { status: 400 });
   }
   try {
-    const { address, network=Network.TESTNET, amount=TRANSFER_AMOUNT  } = await req.json();
+    const { address, network = Network.TESTNET, amount = TRANSFER_AMOUNT } = await req.json();
 
     const privateKey = new Ed25519PrivateKey(process.env.PRIVATE_KEY!);
     const adminAccount = Account.fromPrivateKey({ privateKey, legacy: true }); 
@@ -33,7 +33,11 @@ export async function POST(req: Request) {
     }
     return NextResponse.json(result);
     
-  } catch (error:any) {
-    return new NextResponse(error.message, { status: 500 });
+  } catch (error: any) {
+    const result = {
+      success: false,
+      message: error.message,
+    }
+    return NextResponse.json(result);
   }
 }
